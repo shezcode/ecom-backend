@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "email": "john@example.com",
+    "username": "john",
+    "password": "john123",
+    "role": "user",
+    "firstName": "John",
+    "lastName": "Doe",
+    "avatar": "https://via.placeholder.com/150"
+  },
+  {
+    "id": "2",
+    "email": "admin@example.com",
+    "username": "admin",
+    "password": "admin123",
+    "role": "admin",
+    "firstName": "Admin",
+    "lastName": "User",
+    "avatar": "https://via.placeholder.com/150"
+  }
+]

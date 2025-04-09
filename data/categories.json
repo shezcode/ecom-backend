@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "name": "Clothing",
+    "description": "Apparel and fashion items",
+    "icon": "mdi-hanger"
+  },
+  {
+    "id": "2",
+    "name": "Electronics",
+    "description": "Gadgets and electronics",
+    "icon": "mdi-cellphone"
+  },
+  {
+    "id": "3",
+    "name": "Books",
+    "description": "Books and literature",
+    "icon": "mdi-book-open-page-variant"
+  },
+  {
+    "id": "4",
+    "name": "Home",
+    "description": "Home goods and furniture",
+    "icon": "mdi-home"
+  }
+]

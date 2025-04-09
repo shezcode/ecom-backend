@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1",
+    "name": "Basic T-shirt",
+    "description": "Comfortable cotton t-shirt",
+    "price": 29.99,
+    "image": "placeholder",
+    "categoryId": "1",
+    "stock": 50,
+    "createdAt": "2025-01-15"
+  },
+  {
+    "id": "2",
+    "name": "Slim Fit Jeans",
+    "description": "Classic blue denim jeans",
+    "price": 59.99,
+    "image": "placeholder",
+    "categoryId": "1",
+    "stock": 35,
+    "createdAt": "2025-01-20"
+  },
+  {
+    "id": "3",
+    "name": "Running Shoes",
+    "description": "Lightweight running shoes",
+    "price": 89.99,
+    "image": "placeholder",
+    "categoryId": "1",
+    "stock": 25,
+    "createdAt": "2025-02-10"
+  },
+  {
+    "id": "4",
+    "name": "Hooded Sweatshirt",
+    "description": "Warm hooded sweatshirt for cold days",
+    "price": 45.99,
+    "image": "placeholder",
+    "categoryId": "1",
+    "stock": 40,
+    "createdAt": "2025-02-15"
+  },
+  {
+    "id": "5",
+    "name": "iPhone 14",
+    "description": "Latest Apple smartphone",
+    "price": 999.99,
+    "image": "placeholder",
+    "categoryId": "2",
+    "stock": 15,
+    "createdAt": "2025-03-05"
+  },
+  {
+    "id": "6",
+    "name": "Samsung Galaxy S23",
+    "description": "Flagship Android smartphone",
+    "price": 899.99,
+    "image": "placeholder",
+    "categoryId": "2",
+    "stock": 20,
+    "createdAt": "2025-03-15"
+  },
+  {
+    "id": "7",
+    "name": "MacBook Pro",
+    "description": "Powerful laptop for professionals",
+    "price": 1499.99,
+    "image": "placeholder",
+    "categoryId": "2",
+    "stock": 10,
+    "createdAt": "2025-04-10"
+  },
+  {
+    "id": "8",
+    "name": "Wireless Earbuds",
+    "description": "High-quality wireless earbuds with noise cancellation",
+    "price": 129.99,
+    "image": "placeholder",
+    "categoryId": "2",
+    "stock": 30,
+    "createdAt": "2025-04-20"
+  },
+  {
+    "id": "9",
+    "name": "The Great Gatsby",
+    "description": "Classic novel by F. Scott Fitzgerald",
+    "price": 12.99,
+    "image": "placeholder",
+    "categoryId": "3",
+    "stock": 40,
+    "createdAt": "2025-05-01"
+  },
+  {
+    "id": "10",
+    "name": "To Kill a Mockingbird",
+    "description": "Classic novel by Harper Lee",
+    "price": 14.99,
+    "image": "placeholder",
+    "categoryId": "3",
+    "stock": 35,
+    "createdAt": "2025-05-15"
+  },
+  {
+    "id": "11",
+    "name": "Programming in JavaScript",
+    "description": "Comprehensive guide to JavaScript programming",
+    "price": 34.99,
+    "image": "placeholder",
+    "categoryId": "3",
+    "stock": 25,
+    "createdAt": "2025-06-01"
+  },
+  {
+    "id": "12",
+    "name": "Sectional Sofa",
+    "description": "Comfortable L-shaped sectional sofa",
+    "price": 899.99,
+    "image": "placeholder",
+    "categoryId": "4",
+    "stock": 8,
+    "createdAt": "2025-06-15"
+  },
+  {
+    "id": "13",
+    "name": "Coffee Table",
+    "description": "Modern coffee table with storage",
+    "price": 249.99,
+    "image": "placeholder",
+    "categoryId": "4",
+    "stock": 15,
+    "createdAt": "2025-07-01"
+  },
+  {
+    "id": "14",
+    "name": "Bedside Lamp",
+    "description": "Elegant bedside lamp with dimming feature",
+    "price": 59.99,
+    "image": "placeholder",
+    "categoryId": "4",
+    "stock": 20,
+    "createdAt": "2025-07-15"
+  },
+  {
+    "id": "15",
+    "name": "Kitchen Blender",
+    "description": "High-powered blender for smoothies and food prep",
+    "price": 79.99,
+    "image": "placeholder",
+    "categoryId": "4",
+    "stock": 25,
+    "createdAt": "2025-08-01"
+  }
+]
