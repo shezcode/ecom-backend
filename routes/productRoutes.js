@@ -13,29 +13,116 @@ const productsFile = join(dataDir, "products.json");
 
 const router = express.Router();
 
-// GET all products with search functionality
+// GET all products with enhanced search functionality
 router.get("/", async (req, res) => {
   try {
     const products = await readJsonFile(productsFile);
 
-    // Handle search query
-    if (req.query.search) {
-      const searchTerm = req.query.search.toLowerCase();
-      const filteredProducts = products.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm) ||
-          product.description.toLowerCase().includes(searchTerm)
-      );
+    // Handle search queries
+    if (Object.keys(req.query).length > 0) {
+      let filteredProducts = [...products];
+
+      // Search by name
+      if (req.query.name) {
+        const nameSearch = req.query.name.toLowerCase();
+        filteredProducts = filteredProducts.filter((product) =>
+          product.name.toLowerCase().includes(nameSearch),
+        );
+      }
+
+      // Search by description
+      if (req.query.description) {
+        const descSearch = req.query.description.toLowerCase();
+        filteredProducts = filteredProducts.filter((product) =>
+          product.description.toLowerCase().includes(descSearch),
+        );
+      }
+
+      // General search (searches both name and description)
+      if (req.query.search) {
+        const generalSearch = req.query.search.toLowerCase();
+        filteredProducts = filteredProducts.filter(
+          (product) =>
+            product.name.toLowerCase().includes(generalSearch) ||
+            product.description.toLowerCase().includes(generalSearch),
+        );
+      }
+
+      // Filter by category
+      if (req.query.categoryId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.categoryId.toString() === req.query.categoryId,
+        );
+      }
+
+      // Filter by price range
+      if (req.query.minPrice) {
+        const minPrice = parseFloat(req.query.minPrice);
+        filteredProducts = filteredProducts.filter(
+          (product) => product.price >= minPrice,
+        );
+      }
+
+      if (req.query.maxPrice) {
+        const maxPrice = parseFloat(req.query.maxPrice);
+        filteredProducts = filteredProducts.filter(
+          (product) => product.price <= maxPrice,
+        );
+      }
+
       return res.json(filteredProducts);
     }
 
-    // Return all products
+    // Return all products if no search params
     res.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
+
+// Add a dedicated search endpoint for more complex searches
+router.get("/search", async (req, res) => {
+  try {
+    const products = await readJsonFile(productsFile);
+
+    // Get search parameters
+    const { query, fields = "name,description", exact = "false" } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ error: "Search query is required" });
+    }
+
+    // Parse fields to search in
+    const searchFields = fields.split(",");
+    const isExactMatch = exact.toLowerCase() === "true";
+    const searchTerm = query.toLowerCase();
+
+    // Perform search
+    const results = products.filter((product) => {
+      // For each field specified
+      return searchFields.some((field) => {
+        if (!product[field]) return false;
+
+        const fieldValue = product[field].toLowerCase();
+
+        // Exact match or contains
+        if (isExactMatch) {
+          return fieldValue === searchTerm;
+        } else {
+          return fieldValue.includes(searchTerm);
+        }
+      });
+    });
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error searching products:", error);
+    res.status(500).json({ error: "Failed to search products" });
+  }
+});
+
+// Other routes remain the same...
 
 // GET product by ID
 router.get("/:id", async (req, res) => {
@@ -54,88 +141,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// GET products by category
+// Make sure this route is defined before the /:id route to avoid conflicts
 router.get("/category/:categoryId", async (req, res) => {
   try {
     const products = await readJsonFile(productsFile);
     const categoryProducts = products.filter(
-      (p) => p.categoryId.toString() === req.params.categoryId
+      (p) => p.categoryId.toString() === req.params.categoryId,
     );
 
     res.json(categoryProducts);
   } catch (error) {
     console.error("Error fetching products by category:", error);
     res.status(500).json({ error: "Failed to fetch products by category" });
-  }
-});
-
-// CREATE product
-router.post("/", async (req, res) => {
-  try {
-    const products = await readJsonFile(productsFile);
-
-    // Generate a new ID (in a real app, use UUID or similar)
-    const newId = Math.max(...products.map((p) => parseInt(p.id))) + 1;
-
-    const newProduct = {
-      id: newId.toString(),
-      ...req.body,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
-
-    products.push(newProduct);
-    await writeJsonFile(productsFile, products);
-
-    res.status(201).json(newProduct);
-  } catch (error) {
-    console.error("Error creating product:", error);
-    res.status(500).json({ error: "Failed to create product" });
-  }
-});
-
-// UPDATE product
-router.put("/:id", async (req, res) => {
-  try {
-    const products = await readJsonFile(productsFile);
-    const index = products.findIndex((p) => p.id.toString() === req.params.id);
-
-    if (index === -1) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    const updatedProduct = {
-      ...products[index],
-      ...req.body,
-      id: products[index].id, // Ensure ID doesn't change
-    };
-
-    products[index] = updatedProduct;
-    await writeJsonFile(productsFile, products);
-
-    res.json(updatedProduct);
-  } catch (error) {
-    console.error("Error updating product:", error);
-    res.status(500).json({ error: "Failed to update product" });
-  }
-});
-
-// DELETE product
-router.delete("/:id", async (req, res) => {
-  try {
-    const products = await readJsonFile(productsFile);
-    const filteredProducts = products.filter(
-      (p) => p.id.toString() !== req.params.id
-    );
-
-    if (filteredProducts.length === products.length) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    await writeJsonFile(productsFile, filteredProducts);
-    res.json({ message: "Product deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting product:", error);
-    res.status(500).json({ error: "Failed to delete product" });
   }
 });
 
