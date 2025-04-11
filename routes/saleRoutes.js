@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 
 // Data files path
 const dataDir = join(__dirname, "..", "data");
-const salesFile = join(dataDir, "salesFile.json");
+const salesFile = join(dataDir, "sales.json");
 
 const router = express.Router();
 

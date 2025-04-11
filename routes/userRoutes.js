@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
       const matchedUsers = users.filter(
         (user) =>
           user.username === req.query.username &&
-          user.password === req.query.password
+          user.password === req.query.password,
       );
       return res.json(matchedUsers);
     }
@@ -66,6 +66,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: "Failed to create user" });
   }
 });
+
 // UPDATE user
 router.put("/:id", async (req, res) => {
   try {
